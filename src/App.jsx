@@ -7,6 +7,8 @@ import {
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
+import PrivateRoute from "./routes/PrivateRoute";
+
 export default function App() {
 
   return (
@@ -15,7 +17,9 @@ export default function App() {
 
       <Route
         path="/"
-        element={<Navigate to="/login" />}
+        element={
+          <Navigate to="/login" />
+        }
       />
 
       <Route
@@ -25,7 +29,13 @@ export default function App() {
 
       <Route
         path="/dashboard"
-        element={<Dashboard />}
+        element={
+          <PrivateRoute>
+
+            <Dashboard />
+
+          </PrivateRoute>
+        }
       />
 
     </Routes>
