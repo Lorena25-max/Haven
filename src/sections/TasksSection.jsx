@@ -1,3 +1,7 @@
+/* import {
+  DndContext,
+} from "@dnd-kit/core"; */
+
 import {
   useContext,
   useEffect,
@@ -227,6 +231,77 @@ export default function TasksSection() {
       }
     };
 
+    const handleEdit =
+  async (task) => {
+
+    const result =
+      await Swal.fire({
+
+        title:
+          "Editar tarea",
+
+        html: `
+
+          <input
+            id="titulo"
+            class="swal2-input"
+            value="${task.titulo}"
+          >
+
+          <textarea
+            id="descripcion"
+            class="swal2-textarea"
+          >${task.descripcion || ""}</textarea>
+
+        `,
+
+        showCancelButton: true,
+
+        preConfirm: () => ({
+
+          titulo:
+            document.getElementById(
+              "titulo"
+            ).value,
+
+          descripcion:
+            document.getElementById(
+              "descripcion"
+            ).value,
+        }),
+      });
+
+    if (!result.value)
+      return;
+
+    await updateTask(
+
+      task.id,
+
+      {
+        titulo:
+          result.value.titulo,
+
+        descripcion:
+          result.value.descripcion,
+      }
+    );
+
+    Swal.fire({
+
+      icon:
+        "success",
+
+      title:
+        "Tarea actualizada",
+
+      timer: 1200,
+
+      showConfirmButton: false,
+    });
+  };
+
+
   // =========================
   // FILTERS
   // =========================
@@ -441,9 +516,7 @@ export default function TasksSection() {
 
       </div>
 
-      {/* COLUMNS */}
-
-      {loading ? (
+            {loading ? (
 
         <div className="text-center py-20 text-slate-500">
           Cargando tareas...
@@ -453,42 +526,34 @@ export default function TasksSection() {
 
         <div className="grid lg:grid-cols-3 gap-6">
 
-          {/* PENDIENTE */}
+          {/* PENDIENTES */}
 
           <div className="bg-white/50 backdrop-blur-xl rounded-[2rem] p-5 shadow-xl">
 
             <h2 className="font-black text-xl text-rose-500 mb-5">
-              Pendiente
+              Pendientes
             </h2>
 
             <div className="space-y-4">
 
-              {pendientes.map(
-                (task) => (
+              {pendientes.map((task) => (
 
-                  <TaskCard
-                    key={task.id}
-                    task={task}
-                    onDelete={() =>
-                      handleDelete(
-                        task.id
-                      )
-                    }
-                    onProgress={() =>
-                      updateStatus(
-                        task,
-                        "En Progreso"
-                      )
-                    }
-                  />
-                )
-              )}
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  onEdit={handleEdit}
+                  onDelete={() =>
+                    handleDelete(task.id)
+                  }
+                />
+
+              ))}
 
             </div>
 
           </div>
 
-          {/* PROGRESO */}
+          {/* EN PROGRESO */}
 
           <div className="bg-white/50 backdrop-blur-xl rounded-[2rem] p-5 shadow-xl">
 
@@ -498,26 +563,18 @@ export default function TasksSection() {
 
             <div className="space-y-4">
 
-              {progreso.map(
-                (task) => (
+              {progreso.map((task) => (
 
-                  <TaskCard
-                    key={task.id}
-                    task={task}
-                    onDelete={() =>
-                      handleDelete(
-                        task.id
-                      )
-                    }
-                    onComplete={() =>
-                      updateStatus(
-                        task,
-                        "Completada"
-                      )
-                    }
-                  />
-                )
-              )}
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  onEdit={handleEdit}
+                  onDelete={() =>
+                    handleDelete(task.id)
+                  }
+                />
+
+              ))}
 
             </div>
 
@@ -533,28 +590,30 @@ export default function TasksSection() {
 
             <div className="space-y-4">
 
-              {completadas.map(
-                (task) => (
+              {completadas.map((task) => (
 
-                  <TaskCard
-                    key={task.id}
-                    task={task}
-                    onDelete={() =>
-                      handleDelete(
-                        task.id
-                      )
-                    }
-                  />
-                )
-              )}
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  onEdit={handleEdit}
+                  onDelete={() =>
+                    handleDelete(task.id)
+                  }
+                />
+
+              ))}
 
             </div>
 
           </div>
 
         </div>
+
       )}
 
     </div>
+
   );
+
 }
+

@@ -1,119 +1,178 @@
+import {
+  useDraggable,
+} from "@dnd-kit/core";
+
+import {
+  CSS,
+} from "@dnd-kit/utilities";
+
 export default function TaskCard({
+
   task,
   onDelete,
-  onProgress,
-  onComplete,
+  onEdit,
+
 }) {
+
+  const {
+
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+
+  } = useDraggable({
+
+    id: task.id,
+
+  });
+
+  const style = {
+
+    transform:
+      CSS.Transform.toString(
+        transform
+      ),
+
+    transition,
+
+  };
+
+  const priorityColors = {
+
+    Alta:
+      "bg-rose-100 text-rose-700",
+
+    Media:
+      "bg-amber-100 text-amber-700",
+
+    Baja:
+      "bg-emerald-100 text-emerald-700",
+
+  };
 
   return (
 
-    <div className={`
-      rounded-[2rem] p-5 shadow-xl border backdrop-blur-xl transition-all hover:scale-[1.02]
-      ${
-        task.estado ===
-        "Pendiente"
-          ? "bg-rose-50 border-rose-200"
-          : task.estado ===
-            "En Progreso"
-          ? "bg-amber-50 border-amber-200"
-          : "bg-emerald-50 border-emerald-200"
-      }
-    `}>
+    <div
 
-      {/* PRIORITY */}
+      ref={setNodeRef}
 
-      <div className="flex justify-between items-center mb-4">
+      style={style}
 
-        <span className={`
-          text-xs px-3 py-1 rounded-full font-bold
-          ${
-            task.prioridad ===
-            "Alta"
-              ? "bg-rose-500 text-white"
-              : task.prioridad ===
-                "Media"
-              ? "bg-amber-400 text-white"
-              : "bg-emerald-500 text-white"
-          }
-        `}>
+      {...listeners}
 
-          {task.prioridad || "Baja"}
+      {...attributes}
 
-        </span>
+      className="
+        bg-white
+        rounded-2xl
+        border
+        border-slate-200
+        p-4
+        shadow-sm
+        hover:shadow-lg
+        transition
+        cursor-grab
+      "
 
-        <span className="text-xs text-slate-500">
-          {task.fecha}
+    >
+
+      <div className="flex justify-between items-start">
+
+        <h3 className="font-bold text-slate-800">
+
+          {task.titulo}
+
+        </h3>
+
+        <span
+          className={`
+            text-xs
+            px-2
+            py-1
+            rounded-full
+            font-semibold
+            ${priorityColors[
+              task.prioridad
+            ]}
+          `}
+        >
+
+          {task.prioridad}
+
         </span>
 
       </div>
 
-      {/* TITLE */}
+      {task.descripcion && (
 
-      <h3 className="text-xl font-black text-slate-800">
-        {task.titulo}
-      </h3>
+        <p className="text-sm text-slate-500 mt-2">
 
-      {/* DESCRIPTION */}
+          {task.descripcion}
 
-      <p className="text-slate-600 mt-3 text-sm leading-relaxed">
-        {task.descripcion}
-      </p>
-
-      {/* ASSIGNED */}
-
-      <div className="mt-5">
-
-        <p className="text-xs text-slate-500">
-          Asignada a
         </p>
 
-        <p className="font-bold text-fuchsia-600">
-          {task.assignedTo || "Sin asignar"}
-        </p>
+      )}
+
+      <div className="mt-4 text-xs text-slate-500">
+
+        👤 {task.assignedTo || "Sin asignar"}
 
       </div>
 
-      {/* BUTTONS */}
+      <div className="text-xs text-slate-500">
 
-      <div className="flex gap-2 mt-6">
+        📅 {task.fecha || "Sin fecha"}
 
-        {task.estado ===
-          "Pendiente" && (
+      </div>
 
-          <button
-            onClick={
-              onProgress
-            }
-            className="flex-1 bg-amber-400 hover:bg-amber-500 text-white py-2 rounded-xl text-sm font-semibold transition"
-          >
-            Progreso
-          </button>
-        )}
-
-        {task.estado ===
-          "En Progreso" && (
-
-          <button
-            onClick={
-              onComplete
-            }
-            className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-xl text-sm font-semibold transition"
-          >
-            Completar
-          </button>
-        )}
+      <div className="flex gap-2 mt-4">
 
         <button
-          onClick={
-            onDelete
+
+          onClick={() =>
+            onEdit(task)
           }
-          className="flex-1 bg-slate-900 hover:bg-black text-white py-2 rounded-xl text-sm font-semibold transition"
+
+          className="
+            flex-1
+            bg-violet-100
+            text-violet-700
+            py-2
+            rounded-xl
+            text-sm
+          "
+
         >
-          Eliminar
+
+          ✏️
+
+        </button>
+
+        <button
+
+          onClick={onDelete}
+
+          className="
+            flex-1
+            bg-rose-100
+            text-rose-700
+            py-2
+            rounded-xl
+            text-sm
+          "
+
+        >
+
+          🗑️
+
         </button>
 
       </div>
 
     </div>
+
   );
+
 }

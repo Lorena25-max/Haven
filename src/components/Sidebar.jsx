@@ -74,25 +74,37 @@ export default function Sidebar({
 
   return (
 
-    <aside className="w-[280px] min-h-screen bg-white/70 backdrop-blur-2xl border-r border-white/40 shadow-2xl p-6">
+    <aside className="
+      w-[250px]
+      min-h-screen
+      bg-white
+      border-r
+      border-[#ECE6DA]
+      p-5
+      shadow-lg
+    ">
 
-      {/* LOGO */}
+      <div className="mb-8">
 
-      <div className="mb-10">
-
-        <h1 className="text-4xl font-black bg-gradient-to-r from-fuchsia-600 to-indigo-600 bg-clip-text text-transparent">
+        <h1 className="
+          text-3xl
+          font-black
+          text-[#B08D57]
+        ">
           Haven
         </h1>
 
-        <p className="text-slate-500 mt-2 text-sm">
-          Tu hogar organizado ✨
+        <p className="
+          text-slate-500
+          text-sm
+          mt-2
+        ">
+          Tu hogar organizado
         </p>
 
       </div>
 
-      {/* MENU */}
-
-      <div className="space-y-3">
+      <div className="space-y-2">
 
         {menuItems.map((item) => {
 
@@ -104,27 +116,52 @@ export default function Sidebar({
             <button
               key={item.id}
               onClick={() =>
-                setActiveTab(
-                  item.id
-                )
+                setActiveTab(item.id)
               }
               className={`
-                w-full flex items-center gap-4 px-5 py-4 rounded-2xl transition-all font-semibold
+
+                w-full
+                flex
+                items-center
+                gap-3
+
+                px-4
+                py-3
+
+                rounded-xl
+
+                transition-all
+
+                text-sm
+                font-semibold
+
                 ${
-                  activeTab ===
-                  item.id
-                    ? "bg-gradient-to-r from-fuchsia-600 to-indigo-600 text-white shadow-xl scale-[1.02]"
-                    : "hover:bg-white text-slate-700"
+                  activeTab === item.id
+
+                    ? `
+                      bg-[#F4EFE4]
+                      text-[#8F6B35]
+                      border
+                      border-[#DCCBA8]
+                    `
+
+                    : `
+                      text-slate-700
+                      hover:bg-[#F8F5EF]
+                    `
                 }
+
               `}
             >
 
-              <Icon size={22} />
+              <Icon size={18} />
 
               {item.label}
 
             </button>
+
           );
+
         })}
 
       </div>

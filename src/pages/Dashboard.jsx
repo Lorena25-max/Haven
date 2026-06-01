@@ -10,14 +10,12 @@ import {
 import Sidebar from "../components/Sidebar";
 
 import TasksSection from "../sections/TasksSection";
-
 import FinanceSection from "../sections/FinanceSection";
 
 export default function Dashboard() {
 
-  const {
-    profile,
-  } = useContext(AuthContext);
+  const { profile } =
+    useContext(AuthContext);
 
   const [
     activeTab,
@@ -26,50 +24,91 @@ export default function Dashboard() {
 
   return (
 
-    <div className="flex min-h-screen bg-gradient-to-br from-rose-100 via-fuchsia-100 to-indigo-100">
-
-      {/* SIDEBAR */}
+    <div className="
+      flex
+      min-h-screen
+      bg-gradient-to-br
+      from-[#FAF8F3]
+      via-[#F6F2EA]
+      to-[#F3F0E8]
+    ">
 
       <Sidebar
-        activeTab={
-          activeTab
-        }
-        setActiveTab={
-          setActiveTab
-        }
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
       />
 
-      {/* CONTENT */}
-
-      <main className="flex-1 p-8 overflow-y-auto">
+      <main className="
+        flex-1
+        p-6
+        overflow-y-auto
+      ">
 
         {/* HEADER */}
 
-        <div className="bg-white/60 backdrop-blur-2xl border border-white/40 rounded-[2rem] p-8 shadow-2xl mb-8">
+        <div className="
+          bg-white/80
+          backdrop-blur-xl
+          border
+          border-[#E7DFD0]
+          rounded-[28px]
+          p-6
+          shadow-lg
+          mb-6
+        ">
 
-          <h1 className="text-4xl font-black bg-gradient-to-r from-fuchsia-600 to-indigo-600 bg-clip-text text-transparent">
-            Haven ✨
+          <h1 className="
+            text-3xl
+            font-black
+            text-[#3F3A34]
+          ">
+            Haven
           </h1>
 
-          <p className="text-slate-600 mt-3 text-lg">
-
+          <p className="
+            text-slate-500
+            mt-2
+          ">
             Bienvenida,
-            <span className="font-bold text-fuchsia-600">
+            <span className="
+              font-bold
+              text-[#B08D57]
+            ">
               {" "}
               {profile?.name}
             </span>
-
           </p>
 
-          <div className="flex gap-4 flex-wrap mt-6">
+          <div className="
+            flex
+            gap-3
+            flex-wrap
+            mt-5
+          ">
 
-            <div className="bg-white/70 px-5 py-3 rounded-2xl shadow text-sm font-semibold text-slate-700">
-              🏡 Home ID:
-              {" "}
-              {profile?.homeId}
+            <div className="
+              bg-[#F8F4EC]
+              border
+              border-[#E7DFD0]
+              px-4
+              py-2
+              rounded-xl
+              text-sm
+              font-medium
+              text-slate-700
+            ">
+              🏡 Home ID: {profile?.homeId}
             </div>
 
-            <div className="bg-emerald-100 text-emerald-700 px-5 py-3 rounded-2xl shadow text-sm font-semibold">
+            <div className="
+              bg-[#EEF6EF]
+              text-[#4F7D57]
+              px-4
+              py-2
+              rounded-xl
+              text-sm
+              font-medium
+            ">
               Realtime activo
             </div>
 
@@ -79,180 +118,111 @@ export default function Dashboard() {
 
         {/* INICIO */}
 
-        {activeTab ===
-          "inicio" && (
+        {activeTab === "inicio" && (
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="
+            grid
+            md:grid-cols-3
+            gap-5
+          ">
 
-            <div className="bg-white/60 backdrop-blur-2xl rounded-[2rem] p-8 shadow-xl">
+            <div className="
+              bg-white
+              rounded-[24px]
+              p-6
+              shadow-md
+            ">
 
-              <h2 className="text-2xl font-black text-slate-800">
+              <h2 className="
+                text-xl
+                font-black
+                text-slate-800
+              ">
                 🙏 Devocional
               </h2>
 
-              <p className="text-slate-500 mt-3">
+              <p className="
+                text-slate-500
+                mt-2
+              ">
                 Espacio espiritual del hogar.
               </p>
 
             </div>
 
-            <div className="bg-white/60 backdrop-blur-2xl rounded-[2rem] p-8 shadow-xl">
+            <div className="
+              bg-white
+              rounded-[24px]
+              p-6
+              shadow-md
+            ">
 
-              <h2 className="text-2xl font-black text-slate-800">
+              <h2 className="
+                text-xl
+                font-black
+                text-slate-800
+              ">
                 ✅ Tareas
               </h2>
 
-              <p className="text-slate-500 mt-3">
-                Organización y productividad familiar.
+              <p className="
+                text-slate-500
+                mt-2
+              ">
+                Organización familiar.
               </p>
 
             </div>
 
-            <div className="bg-white/60 backdrop-blur-2xl rounded-[2rem] p-8 shadow-xl">
+            <div className="
+              bg-white
+              rounded-[24px]
+              p-6
+              shadow-md
+            ">
 
-              <h2 className="text-2xl font-black text-slate-800">
+              <h2 className="
+                text-xl
+                font-black
+                text-slate-800
+              ">
                 💰 Finanzas
               </h2>
 
-              <p className="text-slate-500 mt-3">
-                Control inteligente del hogar.
+              <p className="
+                text-slate-500
+                mt-2
+              ">
+                Control financiero inteligente.
               </p>
 
             </div>
 
           </div>
+
         )}
 
-        {/* DEVOCIONAL */}
+        {activeTab === "devocional" && (
 
-        {activeTab ===
-          "devocional" && (
-
-          <div className="bg-white/60 backdrop-blur-2xl rounded-[2rem] p-10 shadow-2xl">
-
-            <h2 className="text-3xl font-black text-slate-800">
+          <div className="
+            bg-white
+            rounded-[24px]
+            p-8
+            shadow-md
+          ">
+            <h2 className="text-2xl font-black">
               🙏 Devocional
             </h2>
-
-            <p className="text-slate-500 mt-4">
-              Próximamente:
-              versículos, oración,
-              gratitud y devocional compartido ✨
-            </p>
-
           </div>
+
         )}
 
-        {/* TASKS */}
-
-        {activeTab ===
-          "tareas" && (
-
+        {activeTab === "tareas" && (
           <TasksSection />
-
         )}
 
-        {/* FINANCES */}
-
-        {activeTab ===
-          "finanzas" && (
-
+        {activeTab === "finanzas" && (
           <FinanceSection />
-
-        )}
-
-        {/* HABITS */}
-
-        {activeTab ===
-          "habitos" && (
-
-          <div className="bg-white/60 backdrop-blur-2xl rounded-[2rem] p-10 shadow-2xl">
-
-            <h2 className="text-3xl font-black text-slate-800">
-              ❤️ Hábitos
-            </h2>
-
-            <p className="text-slate-500 mt-4">
-              Próximamente:
-              rutinas, streaks y progreso diario ✨
-            </p>
-
-          </div>
-        )}
-
-        {/* CALENDAR */}
-
-        {activeTab ===
-          "calendario" && (
-
-          <div className="bg-white/60 backdrop-blur-2xl rounded-[2rem] p-10 shadow-2xl">
-
-            <h2 className="text-3xl font-black text-slate-800">
-              📅 Calendario
-            </h2>
-
-            <p className="text-slate-500 mt-4">
-              Próximamente:
-              eventos, recordatorios y agenda ✨
-            </p>
-
-          </div>
-        )}
-
-        {/* MEMBERS */}
-
-        {activeTab ===
-          "integrantes" && (
-
-          <div className="bg-white/60 backdrop-blur-2xl rounded-[2rem] p-10 shadow-2xl">
-
-            <h2 className="text-3xl font-black text-slate-800">
-              👨‍👩‍👧 Integrantes
-            </h2>
-
-            <p className="text-slate-500 mt-4">
-              Próximamente:
-              perfiles y roles del hogar ✨
-            </p>
-
-          </div>
-        )}
-
-        {/* REMINDERS */}
-
-        {activeTab ===
-          "recordatorios" && (
-
-          <div className="bg-white/60 backdrop-blur-2xl rounded-[2rem] p-10 shadow-2xl">
-
-            <h2 className="text-3xl font-black text-slate-800">
-              🔔 Recordatorios
-            </h2>
-
-            <p className="text-slate-500 mt-4">
-              Próximamente:
-              alertas inteligentes y notificaciones ✨
-            </p>
-
-          </div>
-        )}
-
-        {/* SETTINGS */}
-
-        {activeTab ===
-          "ajustes" && (
-
-          <div className="bg-white/60 backdrop-blur-2xl rounded-[2rem] p-10 shadow-2xl">
-
-            <h2 className="text-3xl font-black text-slate-800">
-              ⚙️ Ajustes
-            </h2>
-
-            <p className="text-slate-500 mt-4">
-              Configuración del hogar y cuenta ✨
-            </p>
-
-          </div>
         )}
 
       </main>

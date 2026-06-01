@@ -23,7 +23,7 @@ import MonthTabs from "../components/MonthTabs";
 
 import FinanceStats from "../components/FinanceStats";
 
-import FinanceCard from "../components/FinanceCard";
+/* import FinanceCard from "../components/FinanceCard"; */
 
 import FinanceObligations from "./finance/FinanceObligations";
 
@@ -58,11 +58,6 @@ export default function FinanceSection() {
 ] = useState([]);
 
   const [
-  loading,
-  setLoading,
-] = useState(false);
-
-  const [
     form,
     setForm,
   ] = useState({
@@ -73,7 +68,7 @@ export default function FinanceSection() {
 
     valor: "",
 
-    categoria: "Hogar",
+    categoria: "Gastos del hogar",
   });
 
   // =====================
@@ -585,25 +580,37 @@ export default function FinanceSection() {
       <div className="grid md:grid-cols-3 gap-5">
 
         <FinanceStats
-          title="Ingresos"
-          value={ingresos}
-          icon="📈"
-          color="bg-gradient-to-r from-emerald-500 to-emerald-700"
-        />
+  title="Ingresos"
+  value={ingresos}
+  icon="💰"
+  color="
+    bg-gradient-to-r
+    from-emerald-300
+    to-emerald-400
+  "
+/>
 
-        <FinanceStats
-          title="Gastos"
-          value={gastos}
-          icon="💸"
-          color="bg-gradient-to-r from-rose-500 to-rose-700"
-        />
+<FinanceStats
+  title="Gastos"
+  value={gastos}
+  icon="📄"
+  color="
+    bg-gradient-to-r
+    from-amber-200
+    to-yellow-300
+  "
+/>
 
-        <FinanceStats
-          title="Balance"
-          value={balance}
-          icon="🏦"
-          color="bg-gradient-to-r from-indigo-500 to-indigo-700"
-        />
+<FinanceStats
+  title="Balance"
+  value={balance}
+  icon="✨"
+  color="
+    bg-gradient-to-r
+    from-violet-200
+    to-indigo-300
+  "
+/>
 
       </div>
 
@@ -736,23 +743,88 @@ onResetSaving={
             className="bg-white border p-4 rounded-2xl"
           />
 
-          <input
-            type="text"
-            placeholder="Categoría"
-            value={
-              form.categoria
-            }
-            onChange={(e) =>
-              setForm({
+          <select
+  value={
+    form.categoria
+  }
+  onChange={(e) =>
+    setForm({
 
-                ...form,
+      ...form,
 
-                categoria:
-                  e.target.value,
-              })
-            }
-            className="bg-white border p-4 rounded-2xl"
-          />
+      categoria:
+        e.target.value,
+    })
+  }
+  className="
+    bg-white
+    border
+    p-4
+    rounded-2xl
+  "
+>
+
+  <optgroup label="Gastos">
+
+    <option>
+      Gastos del hogar
+    </option>
+
+    <option>
+      Diezmo
+    </option>
+
+    <option>
+      Disfrute
+    </option>
+
+    <option>
+      Mantenimiento carro
+    </option>
+
+    <option>
+      Inversión
+    </option>
+
+    <option>
+      Deudas
+    </option>
+
+  </optgroup>
+
+  <optgroup label="Ahorro">
+
+    <option>
+      Ahorro sueños
+    </option>
+
+    <option>
+      Fondo de emergencia
+    </option>
+
+  </optgroup>
+
+  <optgroup label="Ingresos">
+
+    <option>
+      Ingresos sueldo
+    </option>
+
+    <option>
+      Ingresos empresa
+    </option>
+
+    <option>
+      Comisiones
+    </option>
+
+    <option>
+      Airbnb
+    </option>
+
+  </optgroup>
+
+</select>
 
           <button
             className="bg-gradient-to-r from-fuchsia-600 to-indigo-600 text-white py-4 rounded-2xl font-bold"
@@ -764,34 +836,170 @@ onResetSaving={
 
         </form>
 
-        {loading ? (
+        <div className="bg-white rounded-[2rem] shadow overflow-hidden">
+    {/* CABECERA */}
 
-          <p>
-            Cargando...
-          </p>
+    <div
+  className="
+    grid
+    grid-cols-6
+    gap-4
+    p-4
+    bg-slate-100
+    border-b
+    font-bold
+    text-slate-600
+    uppercase
+    text-xs
+    tracking-wider
+  "
+>
 
-        ) : (
+      <div>Tipo</div>
 
-          <div className="space-y-4">
+      <div>Categoría</div>
 
-            {monthFinances.map(
-              (item) => (
+      <div>Descripción</div>
 
-                <FinanceCard
-                  key={item.id}
-                  item={item}
-                  onDelete={() =>
-                    handleDelete(
-                      item.id
-                    )
-                  }
-                />
-              )
-            )}
+      <div>Valor</div>
+
+      <div>Registró</div>
+
+      <div>Acciones</div>
+
+    </div>
+
+    {monthFinances.length === 0 && (
+
+      <div className="p-8 text-center text-slate-500">
+
+        No hay movimientos registrados
+
+      </div>
+
+    )}
+
+    {monthFinances.map(
+      (item) => (
+
+        <div
+          key={item.id}
+          className="
+            grid
+            grid-cols-6
+            gap-4
+            p-4
+            border-b
+            items-center
+            hover:bg-violet-50
+    transition
+          
+          "
+        >
+
+          {/* TIPO */}
+
+          <div>
+
+            <span
+              className={`
+                px-3
+                py-1
+                rounded-full
+                text-xs
+                font-bold
+
+                ${
+                  item.tipo === "Ingreso"
+
+                    ? "bg-emerald-100 text-emerald-700"
+
+                    : "bg-amber-100 text-amber-700"
+                }
+              `}
+            >
+
+              {item.tipo}
+
+            </span>
 
           </div>
 
-        )}
+          {/* CATEGORIA */}
+
+          <div className="text-slate-700">
+
+            {item.categoria}
+
+          </div>
+
+          {/* DESCRIPCION */}
+
+          <div className="font-medium text-slate-800">
+
+            {item.descripcion}
+
+          </div>
+
+          {/* VALOR */}
+
+          <div
+            className={`
+              font-black
+
+              ${
+                item.tipo === "Ingreso"
+
+                  ? "text-emerald-600"
+
+                  : "text-amber-600"
+              }
+            `}
+          >
+
+            ${item.valor}
+
+          </div>
+
+          {/* USUARIO */}
+
+          <div className="text-slate-500 text-sm">
+
+            {item.createdBy}
+
+          </div>
+
+          {/* ACCIONES */}
+
+          <div>
+
+            <button
+              onClick={() =>
+                handleDelete(
+                  item.id
+                )
+              }
+              className="
+                px-3
+                py-1
+                rounded-lg
+                bg-rose-100
+                text-rose-600
+                text-sm
+              "
+            >
+
+              Eliminar
+
+            </button>
+
+          </div>
+
+        </div>
+      )
+    )}
+
+  </div>
 
       </div>
 
